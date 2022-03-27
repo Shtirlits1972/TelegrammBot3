@@ -12,36 +12,38 @@ namespace TelegrammBot3
     {
         public static InlineKeyboardMarkup GetProductBtns()
         {
-            InlineKeyboardMarkup inlineKeyboard = new(
-                 new[] {
-                            new [] { InlineKeyboardButton.WithCallbackData("Водка 1 бут.", "Водка") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Носки - 1 пара", "Носки") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Пиво - 1 бут", "Пиво") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Сигареты - 1 уп.", "Сигареты") },
+            List<Product> products = GetProducts();
+            List<InlineKeyboardButton[]> lst = new List<InlineKeyboardButton[]>();
 
-                            new [] { InlineKeyboardButton.WithCallbackData("Завершить заказ", "end"),
-                                       InlineKeyboardButton.WithCallbackData("Завершить выбор товара", "endgoods") }
-                      }
-                  );
+            for (int i = 0; i < products.Count; i++)
+            {
+                InlineKeyboardButton[] arr1 = new[] { InlineKeyboardButton.WithCallbackData($"{products[i].NameProduct} - 1 {products[i].Unit}", products[i].NameProduct) };
+                lst.Add(arr1);
+            }
+
+            InlineKeyboardButton[] closeBtn = new[] { InlineKeyboardButton.WithCallbackData("Завершить заказ", "end"),
+                                                      InlineKeyboardButton.WithCallbackData("Завершить выбор товара", "endgoods") };
+            lst.Add(closeBtn);
+
+            InlineKeyboardMarkup inlineKeyboard = new(lst);
 
             return inlineKeyboard;
         }
-
-
         public static InlineKeyboardMarkup GetCityesBtns()
         {
-            InlineKeyboardMarkup inlineKeyboard = new(
-                 new[] {
-                            new [] { InlineKeyboardButton.WithCallbackData("Харьков") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Одесса") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Днепропетровск") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Полтава") },
-                            new [] { InlineKeyboardButton.WithCallbackData("Сумы") },
+            List<string> cityes = GetCityes();
+            List<InlineKeyboardButton[]> lst = new List<InlineKeyboardButton[]>();
 
-                            new [] { InlineKeyboardButton.WithCallbackData("Завершить заказ", "end") }
-                      }
-                  );
+            for (int i = 0; i < cityes.Count; i++)
+            {
+                InlineKeyboardButton[] arr1 = new[] { InlineKeyboardButton.WithCallbackData(cityes[i]) };
+                lst.Add(arr1);
+            }
 
+            InlineKeyboardButton[] closeBtn = new[] { InlineKeyboardButton.WithCallbackData("Завершить заказ", "end") };
+            lst.Add(closeBtn);
+
+            InlineKeyboardMarkup inlineKeyboard = new(lst);
             return inlineKeyboard;
         }
 
